@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText etmsg,etcontact;
     ConnectionsClient connectionsClient;
     String token;
+    ImageView confirm;
     String opponent;
     PayloadCallback payloadCallbackNext = new PayloadCallback() {
         @Override
@@ -193,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         etmsg = findViewById(R.id.etmsg);
         tvmsgrecieve = findViewById(R.id.tvmsgrecieve);
         tvmsgsend=findViewById(R.id.tvmsgsent);
+        confirm= findViewById(R.id.confirm);
 
         status = findViewById(R.id.status);
         uit=findViewById(R.id.uit);
@@ -245,8 +248,11 @@ public class MainActivity extends AppCompatActivity {
             String finalMessage = encryptedMessage +sender+ receiver;
             connectionsClient.sendPayload(opponent, Payload.fromBytes(finalMessage.getBytes(StandardCharsets.UTF_8)));
             etmsg.setText("");
-                tvmsgsend.setText("You :"+ msg);
+            if(!msg.equals("ZgWUuNwIMksueZNy1nxM")) {
+                tvmsgsend.setText("You :" + msg);
+                confirm.setBackgroundResource(R.drawable.sending);
                 tvmsgsend.requestFocus();
+            }
 
             }
     }
@@ -258,8 +264,15 @@ public class MainActivity extends AppCompatActivity {
         if(receiver.equals(token)) {
             final String secretKey = "com.example.nearbychat";
             String decryptedString = AES.decrypt(message, secretKey);
-            tvmsgrecieve.setText(sender + " : " + decryptedString);
-            tvmsgrecieve.requestFocus();
+            if(decryptedString.equals("ZgWUuNwIMksueZNy1nxM"))
+            {
+                confirm.setBackgroundResource(R.drawable.done);
+            }
+            else {
+                tvmsgrecieve.setText(sender + " : " + decryptedString);
+                sendMessage("ZgWUuNwIMksueZNy1nxM",sender,receiver);
+                tvmsgrecieve.requestFocus();
+            }
         }
         else{
             if(!sender.equals(token))
