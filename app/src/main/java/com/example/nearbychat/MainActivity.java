@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private final Strategy star = Strategy.P2P_CLUSTER;
     private final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
     ImageButton send,contacts;
-    TextView status, tvmsg,uit;
+    TextView status, tvmsgrecieve,uit,tvmsgsend;
     TextInputEditText etmsg,etcontact;
     ConnectionsClient connectionsClient;
     String token;
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
             String msg = new String(payload.asBytes(), StandardCharsets.UTF_8);
-            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             receiveMessage(msg);
         }
         @Override
@@ -92,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             if (connectionResolution.getStatus().isSuccess()) {
                 connectionsClient.stopAdvertising();
                 connectionsClient.stopDiscovery();
-//                startAdvertisingPrevious();
-//                startDiscoveryPrevious();
+                startAdvertisingPrevious();
+                startDiscoveryPrevious();
                 Toast.makeText(MainActivity.this, "Connection made :)", Toast.LENGTH_SHORT).show();
                 status.setText("Status: Half Connection made :)");
             }
@@ -196,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
         String copiedUit = getIntent().getStringExtra("UIT");
         send = findViewById(R.id.send);
         etmsg = findViewById(R.id.etmsg);
-        tvmsg = findViewById(R.id.tvmsg);
+        tvmsgrecieve = findViewById(R.id.tvmsgrecieve);
+        tvmsgsend=findViewById(R.id.tvmsgsent);
+
         status = findViewById(R.id.status);
         uit=findViewById(R.id.uit);
         contacts=findViewById(R.id.contact);
@@ -210,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
         token = sharedPref.getString("Token", "");
-        uit.setText("Token : "+token);
+        uit.setText("UIT : "+token);
 
         Log.i("Token", token);
 
@@ -248,16 +249,21 @@ public class MainActivity extends AppCompatActivity {
             String finalMessage = encryptedMessage +sender+ receiver;
             connectionsClient.sendPayload(opponent, Payload.fromBytes(finalMessage.getBytes(StandardCharsets.UTF_8)));
             etmsg.setText("");
-        }
+                tvmsgsend.setText("You :"+ msg);
+                tvmsgsend.requestFocus();
+
+            }
     }
     public void receiveMessage(String msg){
+//        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
         String message=msg.substring(0,msg.length()-20);
         String receiver=msg.substring(msg.length()-10);
-        String sender=msg.substring(msg.length()-10,msg.length()-10);
+        String sender=msg.substring(msg.length()-20,msg.length()-10);
         if(receiver.equals(token)) {
             final String secretKey = "com.example.nearbychat";
             String decryptedString = AES.decrypt(message, secretKey);
-            tvmsg.setText(sender + " : " + decryptedString);
+            tvmsgrecieve.setText(sender + " : " + decryptedString);
+            tvmsgrecieve.requestFocus();
         }
         else{
             if(!sender.equals(token))

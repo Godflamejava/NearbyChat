@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_weight="0.5"
         android:layout_height="wrap_content"
-        android:text="Token: XXXXXXXXXX"
+        android:text="UIT: XXXXXXXXXX"
         android:padding="10dp"
         android:gravity="center"
         android:id="@+id/uit"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topPanel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvmsg"
+        app:layout_constraintBottom_toTopOf="@id/tvmsgrecieve"
         app:layout_constraintVertical_bias="0.5"
         >
         <TextView
@@ -71,7 +71,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Mesage"
+                android:hint="Enter UIT"
                 android:layout_weight="0.15"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -100,11 +100,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Message:"
-        app:layout_constraintVertical_bias="0.5"
+        android:text=""
+        app:layout_constraintVertical_bias="0.4"
         android:padding="10dp"
-        android:gravity="center"
-        android:id="@+id/tvmsg"
+        android:gravity="start"
+        android:id="@+id/tvmsgrecieve"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvmsgrecieve"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text=""
+        app:layout_constraintVertical_bias="0.1"
+        android:padding="10dp"
+        android:gravity="end"
+        android:id="@+id/tvmsgsent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
