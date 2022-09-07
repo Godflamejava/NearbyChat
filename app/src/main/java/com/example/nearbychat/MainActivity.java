@@ -60,59 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    EndpointDiscoveryCallback endpointDiscoveryCallbackNext = new EndpointDiscoveryCallback() {
-        @Override
-        public void onEndpointFound(@NonNull String s, @NonNull DiscoveredEndpointInfo discoveredEndpointInfo) {
-            connectionsClient.requestConnection(token, s, connectionLifecycleCallbackNext);
-        }
-
-        @Override
-        public void onEndpointLost(@NonNull String s) {
-            Toast.makeText(MainActivity.this, "Connection Lost", Toast.LENGTH_SHORT).show();
-            status.setText("Status: Disconnected :(");
-            connectionsClient.stopDiscovery();
-            connectionsClient.stopAdvertising();
-            connectionsClient.stopAllEndpoints();
-            startDiscoveryNext();
-            startAdvertisingNext();
-
-        }
-    };
-    ConnectionLifecycleCallback connectionLifecycleCallbackNext = new ConnectionLifecycleCallback() {
-        @Override
-        public void onConnectionInitiated(@NonNull String s, @NonNull ConnectionInfo connectionInfo) {
-            connectionsClient.acceptConnection(s, payloadCallbackNext);
-            opponent=s;
-            Toast.makeText(MainActivity.this, "Authentication Digit: " + connectionInfo.getAuthenticationDigits(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onConnectionResult(@NonNull String s, @NonNull ConnectionResolution connectionResolution) {
-            if (connectionResolution.getStatus().isSuccess()) {
-                connectionsClient.stopAdvertising();
-                connectionsClient.stopDiscovery();
-                startAdvertisingPrevious();
-                startDiscoveryPrevious();
-                Toast.makeText(MainActivity.this, "Connection made :)", Toast.LENGTH_SHORT).show();
-                status.setText("Status: Half Connection made :)");
-            }
-        }
-
-        @Override
-        public void onDisconnected(@NonNull String s) {
-            Toast.makeText(MainActivity.this, "Disconnected :(", Toast.LENGTH_SHORT).show();
-            status.setText("Status: Disconnected :(");
-            connectionsClient.stopDiscovery();
-            connectionsClient.stopAdvertising();
-            connectionsClient.stopAllEndpoints();
-            startDiscoveryNext();
-            startAdvertisingNext();
-
-        }
-    };
-
-
-
     PayloadCallback payloadCallbackPrevious = new PayloadCallback() {
         @Override
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
@@ -172,7 +119,56 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+    ConnectionLifecycleCallback connectionLifecycleCallbackNext = new ConnectionLifecycleCallback() {
+        @Override
+        public void onConnectionInitiated(@NonNull String s, @NonNull ConnectionInfo connectionInfo) {
+            connectionsClient.acceptConnection(s, payloadCallbackNext);
+            opponent=s;
+            Toast.makeText(MainActivity.this, "Authentication Digit: " + connectionInfo.getAuthenticationDigits(), Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void onConnectionResult(@NonNull String s, @NonNull ConnectionResolution connectionResolution) {
+            if (connectionResolution.getStatus().isSuccess()) {
+                connectionsClient.stopAdvertising();
+                connectionsClient.stopDiscovery();
+                startAdvertisingPrevious();
+                startDiscoveryPrevious();
+                Toast.makeText(MainActivity.this, "Connection made :)", Toast.LENGTH_SHORT).show();
+                status.setText("Status: Half Connection made :)");
+            }
+        }
+
+        @Override
+        public void onDisconnected(@NonNull String s) {
+            Toast.makeText(MainActivity.this, "Disconnected :(", Toast.LENGTH_SHORT).show();
+            status.setText("Status: Disconnected :(");
+            connectionsClient.stopDiscovery();
+            connectionsClient.stopAdvertising();
+            connectionsClient.stopAllEndpoints();
+            startDiscoveryNext();
+            startAdvertisingNext();
+
+        }
+    };
+    EndpointDiscoveryCallback endpointDiscoveryCallbackNext = new EndpointDiscoveryCallback() {
+        @Override
+        public void onEndpointFound(@NonNull String s, @NonNull DiscoveredEndpointInfo discoveredEndpointInfo) {
+            connectionsClient.requestConnection(token, s, connectionLifecycleCallbackNext);
+        }
+
+        @Override
+        public void onEndpointLost(@NonNull String s) {
+            Toast.makeText(MainActivity.this, "Connection Lost", Toast.LENGTH_SHORT).show();
+            status.setText("Status: Disconnected :(");
+            connectionsClient.stopDiscovery();
+            connectionsClient.stopAdvertising();
+            connectionsClient.stopAllEndpoints();
+            startDiscoveryNext();
+            startAdvertisingNext();
+
+        }
+    };
 
     static String getAlphaNumericString(int n) {
         int lowerLimit = 97;
