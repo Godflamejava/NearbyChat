@@ -7,13 +7,13 @@ https://docs.google.com/presentation/d/19MU_E_B7j-QyW-Y9mRyx3kRrKszROQnJfTMhXCcZ
 
 Instructions to use:
 
-1.Make sure to give all the necessary permissions.
+1. Make sure to give all the necessary permissions.
 
-2.Make sure to switch on wifi,bluetooth and gps
+2. Make sure to switch on wifi,bluetooth and gps
 
-3.Minimum android version required is 8
+3. Minimum android version required is 8
 
-4.Started texting when status shows "Half connection done"
+4. Start texting when status shows "Half connection done"
 
 Application link:
 
