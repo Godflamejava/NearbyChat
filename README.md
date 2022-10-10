@@ -1,5 +1,18 @@
 # NearbyChat
-I might lack enough documentation bcz I m working alone but feel free to go to my ppt to know more and i will keep adding more info as I get more time.
+```html
+<h2>Example of code</h2>
+
+<pre>
+    <div class="container">
+        <div class="block two first">
+            <h2>Your title</h2>
+            <div class="wrap">
+            //Your content
+            </div>
+        </div>
+    </div>
+</pre>
+```
 
 https://docs.google.com/presentation/d/19MU_E_B7j-QyW-Y9mRyx3kRrKszROQnJfTMhXCcZ2hg/edit?usp=sharing
 
