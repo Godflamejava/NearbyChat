@@ -1,9 +1,7 @@
 # NearbyChat
-```html
+Below is the link to full project and details.
+
 https://docs.google.com/presentation/d/19MU_E_B7j-QyW-Y9mRyx3kRrKszROQnJfTMhXCcZ2hg/edit?usp=sharing
-
-```
-
 
 # Try out Link
 
