@@ -1,9 +1,9 @@
 # NearbyChat
 ```html
-<iframe width="100%" height="630" src="docs.google.com/viewer?url=your_file&embedded=true" ></iframe>
+https://docs.google.com/presentation/d/19MU_E_B7j-QyW-Y9mRyx3kRrKszROQnJfTMhXCcZ2hg/edit?usp=sharing
+
 ```
 
-https://docs.google.com/presentation/d/19MU_E_B7j-QyW-Y9mRyx3kRrKszROQnJfTMhXCcZ2hg/edit?usp=sharing
 
 # Try out Link
 
